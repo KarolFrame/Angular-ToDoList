@@ -1,5 +1,12 @@
 # FirstProject
 
+This project is a simple **To-Do List application** built with **Angular**.  
+Its main purpose is to practice component creation, data handling, and communication between components while following good frontend development practices.
+
+The project also includes **Tailwind CSS** for styling, making the UI responsive and easy to customize with utility-first classes.
+
+---
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
 
 ## Development server
@@ -8,6 +15,7 @@ To start a local development server, run:
 
 ```bash
 ng serve
+
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
