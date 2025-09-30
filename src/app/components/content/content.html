@@ -1,0 +1,10 @@
+<p *ngIf="loading">Charging...</p>
+<p *ngIf="error">{{ error }}</p>
+
+<div *ngIf="lists.length > 0">
+  <ul>
+    <li *ngFor="let list of lists; let i = index">{{ i + 1 }}. **{{ list.listName }}**</li>
+  </ul>
+</div>
+
+<p *ngIf="!loading && lists.length === 0">lists not found</p>

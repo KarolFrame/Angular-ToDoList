@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface Task {
+  task: string;
+  done: boolean;
+}
+
+export interface List {
+  list: string;
+  done: boolean;
+}
+
+@Injectable({ providedIn: 'root' })
+export class TodoService {
+  private url = 'https://script.google.com/macros/s/AKfycbwDxrCXWwtr1tl01Bw4pPYT1mtnUrQYG2Qd8MXBonjdE1AkBJCp-ntD1Zsc2yZH3vEZ/exec';
+
+  constructor(private http: HttpClient) {}
+
+  getTasks(listName?: string): Observable<Task[]> {
+  const query = listName ? `?list=${listName}` : '';
+  return this.http.get<Task[]>(`${this.url}${query}`);
+}
+
+  addTask(task: string, done: boolean): Observable<any> {
+    return this.http.post(this.url, { task, done });
+  }
+
+  getLists(): Observable<List[]> {
+  return this.http.get<List[]>(`${this.url}`);
+}
+
+  addList(list: string, done: boolean): Observable<any> {
+    return this.http.post(this.url, { list, done });
+  }
+}
