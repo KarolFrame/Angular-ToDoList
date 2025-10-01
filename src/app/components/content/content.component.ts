@@ -3,13 +3,14 @@ import { TodoService } from '../../services/todo-service';
 import { List } from '../../services/todo-service';
 import { CommonModule } from '@angular/common';
 import { ListComponent } from "../list-task/list-task.component";
+import { NewListComponent } from "../new-list/new-list.component"; 
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [CommonModule, ListComponent],
+  imports: [CommonModule, ListComponent, NewListComponent],
   templateUrl: './content.component.html',
-  styleUrl: './content.component.css'
+  styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
 

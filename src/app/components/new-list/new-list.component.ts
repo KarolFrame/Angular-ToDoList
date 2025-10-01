@@ -8,4 +8,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './new-list.component.html',
   styleUrls: ['./new-list.component.css']
 })
-export class NewListComponent { }
+export class NewListComponent {
+  newListFormComponent: boolean = true;
+
+ }
