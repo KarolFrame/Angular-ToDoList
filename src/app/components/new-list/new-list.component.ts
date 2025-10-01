@@ -13,7 +13,12 @@ export class NewListComponent {
   newListFormComponent: boolean = false;
 
   activateForm = () =>{
-    this.newListFormComponent = !this.newListFormComponent;
+    this.toggleForm(!this.newListFormComponent);
   }
 
- }
+  toggleForm(value: boolean){
+    this.newListFormComponent = value;
+    console.log("achus");
+  }
+
+}

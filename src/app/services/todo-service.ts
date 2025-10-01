@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export interface Task {
   listName: string;
@@ -16,11 +16,17 @@ export interface List {
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
-  private url = 'http://localhost:3000/api'; // tu proxy Express
+  private url = 'http://localhost:3000/api';
+
+  private listCreatedSource = new BehaviorSubject<string | null>(null);
+  listCreated$ = this.listCreatedSource.asObservable();
+
+  notifyListCreated(listName: string) {
+    this.listCreatedSource.next(listName);
+  }
 
   constructor(private http: HttpClient) {}
 
-  // Obtener tareas (GET)
   getTasks(listName?: string): Observable<Task[]> {
     let url = `${this.url}/tasks`;
     if (listName) {
@@ -29,17 +35,14 @@ export class TodoService {
     return this.http.get<Task[]>(url);
   }
 
-  // Añadir tarea (POST)
   addTask(task: Task): Observable<any> {
     return this.http.post(`${this.url}/tasks`, task);
   }
 
-  // Obtener listas (GET)
   getLists(): Observable<List[]> {
     return this.http.get<List[]>(`${this.url}/lists`);
   }
 
-  // Añadir lista (POST)
   addList(list: List): Observable<any> {
     return this.http.post(`${this.url}/lists`, list);
   }

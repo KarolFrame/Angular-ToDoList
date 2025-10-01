@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo-service';
+import { BlockList } from 'net';
+
 
 @Component({
   selector: 'app-new-list-form',
@@ -11,8 +13,8 @@ import { TodoService } from '../../services/todo-service';
   styleUrls: ['./new-list-form.component.css']
 })
 export class NewListFormComponent {
+  @Output() toggle = new EventEmitter<boolean>();
   newListName: string = "";
-
   constructor(private todoService: TodoService){}
 
   onSubmit(): void{
@@ -20,7 +22,9 @@ export class NewListFormComponent {
       this.todoService.addList({ listName: this.newListName }).subscribe({
         next: (response) =>{
           console.log('Lista creada con exito:', response);
-          this.newListName = ""
+          this.todoService.notifyListCreated(this.newListName)
+          this.toggle.emit(false);
+          this.newListName = "";
         },
         error: (err) =>{
           console.log('Error al crear la lista: ', err)
