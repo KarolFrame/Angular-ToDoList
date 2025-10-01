@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Task {
-  task: string;
+  taskName: string;
   done: boolean;
 }
 
 export interface List {
-  list: string;
+  listName: string;
   done: boolean;
 }
 
