@@ -7,7 +7,7 @@
     *ngFor="let list of lists; let i = index"
     [listName]="list.listName"
   />
-  <app-new-list></app-new-list>
+  <app-new-list />
 </div>
 
 <p *ngIf="!loading && lists.length === 0">lists not found</p>
