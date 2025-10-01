@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo-service';
 import { List } from '../../services/todo-service';
 import { CommonModule } from '@angular/common';
+import { ListComponent } from "../list-task/list-task.component";
 
 @Component({
   selector: 'app-content',
-  imports: [CommonModule],
-  templateUrl: './content.html',
-  styleUrl: './content.css'
+  standalone: true,
+  imports: [CommonModule, ListComponent],
+  templateUrl: './content.component.html',
+  styleUrl: './content.component.css'
 })
-export class Content implements OnInit {
+export class ContentComponent implements OnInit {
 
   lists : List[] = [];
   loading: boolean = true;

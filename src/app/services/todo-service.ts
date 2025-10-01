@@ -20,18 +20,18 @@ export class TodoService {
 
   getTasks(listName?: string): Observable<Task[]> {
   const query = listName ? `?list=${listName}` : '';
-  return this.http.get<Task[]>(`${this.url}${query}`);
+  return this.http.get<Task[]>(`${this.url}?action=tasks${query}`);
 }
 
   addTask(task: string, done: boolean): Observable<any> {
-    return this.http.post(this.url, { task, done });
+    return this.http.post(`${this.url}?action=tasks`, { taskName: task, status: done });
   }
 
   getLists(): Observable<List[]> {
-  return this.http.get<List[]>(`${this.url}`);
+  return this.http.get<List[]>(`${this.url}?action=lists`);
 }
 
   addList(list: string, done: boolean): Observable<any> {
-    return this.http.post(this.url, { list, done });
+    return this.http.post(`${this.url}?action=lists`, { listName: list });
   }
 }
