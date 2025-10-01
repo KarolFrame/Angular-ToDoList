@@ -1,8 +1,12 @@
 <p *ngIf="loading">Charging...</p>
 <p *ngIf="error">{{ error }}</p>
 
-<div *ngIf="lists.length > 0">
-  <app-list-task *ngFor="let list of lists; let i = index" [listName]="list.listName" />
+<div *ngIf="lists.length > 0" class="flex w-full gap-3">
+  <app-list-task
+    class="w-1/4"
+    *ngFor="let list of lists; let i = index"
+    [listName]="list.listName"
+  />
 </div>
 
 <p *ngIf="!loading && lists.length === 0">lists not found</p>

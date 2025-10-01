@@ -1,31 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TodoService } from '../../services/todo-service';
-
-interface Task {
-  listName: string;
-  taskName: string;
-  dueDate: string;
-  status: boolean;
-  description: string;
-}
+import { TaskComponent } from '../task/task.component';
+import { Task } from '../../services/todo-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-task',
-  imports: [CommonModule],
   templateUrl: './list-task.component.html',
-  styleUrl: './list-task.component.css'
+  styleUrls: ['./list-task.component.css'],
+  imports: [CommonModule, TaskComponent]
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnChanges {
   @Input() listName!: string;
 
-
-  tasksByList: { [listName: string]: Task[] } = {};
+  tasks: Task[] = [];
+  loading: boolean = true;
+  error: any = null;
 
   constructor(private todoService: TodoService) {}
 
-  ngOnInit(): void {
-    
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['listName'] && this.listName) {
+      this.loadTasks();
+    }
+  }
+
+  private loadTasks() {
+    this.loading = true;
+    this.todoService.getTasks(this.listName).subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Error al cargar las tareas: ' + err.message;
+        this.loading = false;
+        console.error('Hubo un error al obtener las tareas', err);
+      }
+    });
   }
 }

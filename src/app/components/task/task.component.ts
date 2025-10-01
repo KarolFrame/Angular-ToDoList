@@ -10,5 +10,8 @@ import { CommonModule } from "@angular/common";
 })
 
 export class TaskComponent{
-    
+    @Input() taskName!: string;
+    @Input() dueDate!: string;
+    @Input() status!: boolean;
+    @Input() description!: string;
 }

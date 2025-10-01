@@ -3,7 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Task {
+  listName: string;
   taskName: string;
+  dueDate: string;
+  status: boolean;
+  description: string;
   done: boolean;
 }
 
@@ -19,9 +23,12 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   getTasks(listName?: string): Observable<Task[]> {
-  const query = listName ? `?list=${listName}` : '';
-  return this.http.get<Task[]>(`${this.url}?action=tasks${query}`);
-}
+    let url = `${this.url}?action=tasks`;
+    if (listName) {
+      url += `&list=${encodeURIComponent(listName)}`;
+    }
+    return this.http.get<Task[]>(url);
+  }
 
   addTask(task: string, done: boolean): Observable<any> {
     return this.http.post(`${this.url}?action=tasks`, { taskName: task, status: done });

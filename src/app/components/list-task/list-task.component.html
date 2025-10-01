@@ -1,6 +1,14 @@
-<div class="bg-accent rounded-md m-3 p-3 w-1/4">
+<div class="bg-accent rounded-md w-full p-3">
   <h1 class="text-xl text-white">{{ listName }}</h1>
   <div>
-    <ng-content></ng-content>
+    <ng-content>
+      <app-task
+        *ngFor="let task of tasks; let i = index"
+        [taskName]="task.taskName"
+        [dueDate]="task.dueDate"
+        [status]="task.status"
+        [description]="task.description"
+      />
+    </ng-content>
   </div>
 </div>
