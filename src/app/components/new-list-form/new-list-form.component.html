@@ -1,6 +1,14 @@
-<div class="bg-primary rounded-md w-full p-3">
-  <form>
-    <input type="text" name="newListName" id="list" placeholder="New list name" required />
+<div class="bg-primary rounded-md w-full p-3 mt-3">
+  <form class="flex items-center text-white gap-2" (ngSubmit)="onSubmit()">
+    <input
+      class="bg-secondary placeholder-white rounded-md p-2"
+      type="text"
+      name="newListName"
+      id="list"
+      placeholder="New list name"
+      required
+      [(ngModel)]="newListName"
+    />
     <button type="submit">
       <svg
         xmlns="http://www.w3.org/2000/svg"

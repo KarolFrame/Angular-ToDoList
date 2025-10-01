@@ -5,40 +5,42 @@ import { Observable } from 'rxjs';
 export interface Task {
   listName: string;
   taskName: string;
-  dueDate: string;
+  dueDate?: string;
   status: boolean;
-  description: string;
-  done: boolean;
+  description?: string;
 }
 
 export interface List {
   listName: string;
-  done: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
-  private url = 'https://script.google.com/macros/s/AKfycbwDxrCXWwtr1tl01Bw4pPYT1mtnUrQYG2Qd8MXBonjdE1AkBJCp-ntD1Zsc2yZH3vEZ/exec';
+  private url = 'http://localhost:3000/api'; // tu proxy Express
 
   constructor(private http: HttpClient) {}
 
+  // Obtener tareas (GET)
   getTasks(listName?: string): Observable<Task[]> {
-    let url = `${this.url}?action=tasks`;
+    let url = `${this.url}/tasks`;
     if (listName) {
-      url += `&list=${encodeURIComponent(listName)}`;
+      url += `?list=${encodeURIComponent(listName)}`;
     }
     return this.http.get<Task[]>(url);
   }
 
-  addTask(task: string, done: boolean): Observable<any> {
-    return this.http.post(`${this.url}?action=tasks`, { taskName: task, status: done });
+  // Añadir tarea (POST)
+  addTask(task: Task): Observable<any> {
+    return this.http.post(`${this.url}/tasks`, task);
   }
 
+  // Obtener listas (GET)
   getLists(): Observable<List[]> {
-  return this.http.get<List[]>(`${this.url}?action=lists`);
-}
+    return this.http.get<List[]>(`${this.url}/lists`);
+  }
 
-  addList(list: string, done: boolean): Observable<any> {
-    return this.http.post(`${this.url}?action=lists`, { listName: list });
+  // Añadir lista (POST)
+  addList(list: List): Observable<any> {
+    return this.http.post(`${this.url}/lists`, list);
   }
 }

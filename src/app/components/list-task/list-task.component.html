@@ -5,9 +5,9 @@
       <app-task
         *ngFor="let task of tasks; let i = index"
         [taskName]="task.taskName"
-        [dueDate]="task.dueDate"
+        [dueDate]="task.dueDate || ''"
         [status]="task.status"
-        [description]="task.description"
+        [description]="task.description || ''"
       />
     </ng-content>
   </div>

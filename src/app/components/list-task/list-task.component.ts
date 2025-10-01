@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-list-task',
   templateUrl: './list-task.component.html',
   styleUrls: ['./list-task.component.css'],
-  imports: [CommonModule, TaskComponent]
+  imports: [CommonModule, TaskComponent],
 })
 export class ListComponent implements OnChanges {
   @Input() listName!: string;
